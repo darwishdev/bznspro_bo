@@ -1,0 +1,69 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --fk-border-box-shadow: transparent;
+  --fk-border-box-shadow-focus: transparent !important;
+  --fk-color-primary: transparent;
+  --color-danger-opacity: #fc61615c;
+  --color-success-opacity: #0ab9794d;
+  --fk-bg-input: var(--color-card) !important;
+}
+::placeholder,
+.formkit-placeholder {
+  color: var(--color-white) !important;
+  opacity: 1;
+}
+
+.w-300 {
+  width: 300px !important;
+}
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+.danger-opacity {
+  background: var(--color-danger-opacity) !important;
+  color: #fff !important;
+}
+.success-opacity {
+  background: var(--color-success-opacity) !important;
+  color: #fff !important;
+}
+li.formkit-item {
+  border: none !important;
+  background-color: var(--color-card);
+}
+ul.formkit-controls,
+ul.formkit-controls button {
+  background: none;
+  color: white;
+}
+.formkit-controls > li > button:disabled {
+  color: var(--fk-color-disabled);
+  cursor: default;
+}
+
+[data-type='button'] .formkit-input {
+  background-color: var(--color-background) !important;
+  border: none;
+}
+.formkit-listbox .formkit-listitem .formkit-selected-icon {
+  color: black !important;
+  padding: 1rem;
+}
+.formkit-dropdown-wrapper {
+  background: var(--color-background) !important;
+}
+.formkit-listitem[aria-selected='true'] {
+  background: var(--color-background) !important;
+  color: white !important;
+}
+.p-toolbar-group-end .formkit-track {
+  margin-top: 2vh;
+}
+
+[data-type='toggle'] input:checked ~ .formkit-track {
+  background-color: var(--color-success);
+}
