@@ -3,7 +3,7 @@ import type { FormKitNode } from '@formkit/core'
 
 export type ListViewWithTypesProps = {
     typedId: number
-    createForm: Record<string, AppFormSection>,
+    createForm?: Record<string, AppFormSection>,
     viewRouterName: string
     prependHeaders?: Record<string, ITableHeader>,
     appendHeaders?: Record<string, ITableHeader>,

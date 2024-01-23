@@ -8,9 +8,11 @@ import usersRoutes from '@/app/accounts/users/routes';
 import rolesRoutes from '@/app/accounts/roles/routes';
 import publicRoutes from '@/app/public/routes';
 import eventsRoutes from '@/app/events/routes';
+import categoriesRoutes from '@/app/categories/routes';
 
 const appRoutes = [
   ...dashboardRoutes,
+  ...categoriesRoutes,
   ...usersRoutes,
   ...eventsRoutes,
   ...rolesRoutes,
