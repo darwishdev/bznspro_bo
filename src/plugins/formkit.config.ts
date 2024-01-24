@@ -1,6 +1,7 @@
 
 import { genesisIcons } from "@formkit/icons"
 import InputDropDownCustom from "@/components/form/InputDropDownCustom.vue"
+import EditorInput from "@/components/form/EditorInput.vue"
 import InputUnitQty from "@/components/form/InputUnitQty.vue"
 import InputUnitPrice from "@/components/form/InputUnitPrice.vue"
 
@@ -16,6 +17,9 @@ const pro = createProPlugin(import.meta.env.VITE_FORMKIT_TOKEN, inputs)
 
 const dropdownCustomInput = createInput(InputDropDownCustom, {
     props: ['dropdownProps', 'options', 'placeholder', 'convertToFlat', 'requestValue', 'translateLabel', 'cacheName', 'cachePeriod'],
+})
+const editorCustomInput = createInput(EditorInput, {
+    props: ['name', 'label'],
 })
 const unitQtyInput = createInput(InputUnitQty, {
     props: ['unitBuy', 'unitSell', 'unitRatio'],
@@ -33,6 +37,7 @@ const config: DefaultConfigOptions = {
         'dropdownCustom': dropdownCustomInput,
         'unitPrice': unitPriceInput,
         'unitQty2': unitQtyInput,
+        'editorCustom' : editorCustomInput
     },
     locale: 'en',
     theme: 'genesis'

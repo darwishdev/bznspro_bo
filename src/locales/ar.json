@@ -56,6 +56,11 @@
     "team": "فريق",
     "teamMemberName": "اسم العضو",
     "jobTitle": "الوظيفة",
+    "event_create": "انشاء حدث",
+    "event_update": "تعديل حدث",
+    "settings_update": "تحديث الاعدادات",
+
+    "constructor_info": "معلومات المنفذ",
     "teamMemberImage": "صورة العضو",
     "projects_create": "انشاء مشروع",
     "projects_update": "تعديل مشروع",

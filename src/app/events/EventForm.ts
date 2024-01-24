@@ -12,7 +12,7 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
             {
                 $formkit: 'text',
                 prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-5",
+                outerClass: "col-12 sm:col-6 md:col-",
                 name: "eventName",
                 validation: "required",
                 placeholder: t("eventName"),
@@ -21,7 +21,7 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
             {
                 $formkit: 'text',
                 prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-5",
+                outerClass: "col-12 sm:col-6 md:col-",
                 name: "eventLocation",
                 placeholder: t("eventLocation"),
                 validation: "required",
@@ -30,54 +30,46 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
             {
                 $formkit: 'text',
                 prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-5",
+                outerClass: "col-12 sm:col-6 md:col-",
                 name: "eventLocationUrl",
                 placeholder: t("eventLocationUrl"),
                 label: t("eventLocationUrl")
             },
             {
-                $formkit: 'textarea',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventPlan",
-                placeholder: t("eventPlan"),
-                validation: "required",
-                label: t("eventPlan")
-            },
-            {
-                $formkit: 'textarea',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventGoals",
-                placeholder: t("eventGoals"),
-                validation: "required",
-                label: t("eventGoals")
-            },
-            {
-                $formkit: 'textarea',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventBrief",
-                placeholder: t("eventBrief"),
-                validation: "required",
-                label: t("eventBrief")
-            },
-            {
-                $formkit: 'textarea',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventDescription",
-                placeholder: t("eventDescription"),
-                validation: "required",
-                label: t("eventDescription")
-            },
-            {
                 $formkit: 'text',
                 prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-5",
+                outerClass: "col-12 sm:col-6 md:col-",
                 name: "eventVideo",
                 placeholder: t("eventVideo"),
                 label: t("eventVideo")
+            },
+            {
+                $formkit: 'editorCustom',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-6",
+                name: "eventPlan",
+                label: t("eventPlan")
+            },
+            {
+                $formkit: 'editorCustom',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-6",
+                name: "eventGoals",
+                label: t("eventGoals")
+            },
+            {
+                $formkit: 'editorCustom',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-6",
+                name: "eventBrief",
+                label: t("eventBrief")
+            },
+            {
+                $formkit: 'editorCustom',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-6",
+                name: "eventDescription",
+                label: t("eventDescription")
             },
             {
                 $formkit: 'picker',
@@ -107,13 +99,15 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                 $formkit: 'number',
                 outerClass: "col-12 sm:col-6 md:col-5",
                 name: "eventHours",
+                number : 'integer',
+                prefixIcon: "number",
                 validation: "required|min:1",
                 label: t("eventHours"),
                 placeholder: t("eventHours")
             },
             {
                 $formkit: 'dropdownCustom',
-                outerClass: "col-6",
+                outerClass: "col-10",
                 name: "categoryId",
                 validation: "required",
                 options: 'categoriesInputList',
@@ -125,7 +119,7 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
             {
                 $cmp: 'FormKit',
                 props: {
-                    outerClass: "col-12 sm:col-6 md:col-2",
+                    outerClass: "col-12 sm:col-6 md:col-12",
                     type: 'image',
                     name: 'eventImage',
                     value: "0.701566374267176.png",
@@ -153,11 +147,10 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
             {
                 $cmp: 'FormKit',
                 props: {
-                    outerClass: "col-12 sm:col-6 md:col-2",
+                    outerClass: "col-12 sm:col-6 md:col-12",
                     type: 'image',
                     name: 'constructorImage',
                     value: "0.701566374267176.png",
-                    // size: 500
                 }
             },
         ]
@@ -165,6 +158,12 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
 };
 
 const redirectRoute = 'events_list';
+
+const map = (req : any) => {
+    req.eventDate = new Date(req.eventDate).toLocaleDateString()
+    console.log(req);
+    return req
+}
 
 export const getEventFormProps =
     async <T extends 'create' | 'update'>(
@@ -179,7 +178,8 @@ export const getEventFormProps =
                         title: "event_create",
                         submitHandler: {
                             endpoint: apiClient.eventCreate,
-                            redirectRoute
+                            redirectRoute,
+                            mapFunction : map
                         },
                         sections: getSections(t)
                     }
@@ -194,7 +194,7 @@ export const getEventFormProps =
                     title: "event_update",
                     submitHandler: {
                         endpoint: apiClient.eventUpdate,
-                        redirectRoute
+                        redirectRoute,
                     },
                     sections: getSections(t),
                     findHandler: {

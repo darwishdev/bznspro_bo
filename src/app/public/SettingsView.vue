@@ -36,7 +36,7 @@ const getSections = async () => {
     for (const setting of settings) {
       settingsObject[setting.settingKey] = setting.settingValue;
       sections.push({
-        $formkit: 'text',
+        $formkit: 'editorCustom',
         prefixIcon: "tools",
         outerClass: "col-12 sm:col-6 md:col-6",
         label : t(setting.settingKey + 'Label'),
