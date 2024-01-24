@@ -1,0 +1,11 @@
+<script setup lang="ts">
+import AppForm from 'v-dashkit/form/AppForm';
+import { useI18n } from 'vue-i18n';
+import { getTestemonialsFormProps } from './TestemonialsForm'
+const { t } = useI18n()
+
+const formProps = await getTestemonialsFormProps(t, 'update')
+</script>
+<template>
+    <app-form :context="formProps.context" />
+</template>

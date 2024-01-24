@@ -8,14 +8,24 @@ import usersRoutes from '@/app/accounts/users/routes';
 import rolesRoutes from '@/app/accounts/roles/routes';
 import publicRoutes from '@/app/public/routes';
 import eventsRoutes from '@/app/events/routes';
+import servicesRoutes from '@/app/services/routes';
+import projectsRoutes from '@/app/projects/routes';
+import testemonialsRoutes from '@/app/testemonials/routes';
+import eventRequestsRoutes from '@/app/requests/routes';
 import categoriesRoutes from '@/app/categories/routes';
+import teamRoutes from '@/app/team/routes';
 
 const appRoutes = [
   ...dashboardRoutes,
+  ...teamRoutes,
   ...categoriesRoutes,
+  ...servicesRoutes,
+  ...eventRequestsRoutes,
+  ...testemonialsRoutes,
   ...usersRoutes,
   ...eventsRoutes,
   ...rolesRoutes,
+  ...projectsRoutes,
   ...publicRoutes,
 ]
 

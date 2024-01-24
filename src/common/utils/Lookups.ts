@@ -17,6 +17,14 @@ export const payment_types: InputSelectOptionsObject<'cash' | 'visa'> = {
     1: "cash",
     2: "visa",
 }
+
+export const request_statuses: InputSelectOptionsObject<'pending' | 'confirmed' | 'refunded' | 'canceled'> = {
+    1: "pending",
+    2: "confirmed",
+    3: "refunded",
+    4: "canceled",
+}
+
 export const account_types: InputSelectOptionsObject<'customer' | 'supplier' | 'employee' | 'safe' | 'expenses'> = {
     1: "customer",
     2: "supplier",
