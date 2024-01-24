@@ -8,5 +8,5 @@ const { t } = useI18n()
 const formProps = await getUserFormProps(t, 'update')
 </script>
 <template>
-    <app-form :context="formProps" />
+    <app-form :context="formProps.context" />
 </template>

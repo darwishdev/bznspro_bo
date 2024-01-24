@@ -1,8 +1,8 @@
 export default
     [
         {
-            path: '/projects',
-            name: 'projects_list',
+            path: '/categories/projects',
+            name: 'category_projects_list',
             meta: {
               loadingType: 'card',
               breadcrumbs: [{ label: "projects_list", to: { name: 'projects_list' } }],
@@ -11,11 +11,11 @@ export default
             component: () => import('./projects/ProjectsList.vue')
           },
           {
-              path: '/blogs',
-              name: 'blogs_list',
+              path: '/categories/blog',
+              name: 'categories_blog',
               meta: {
                 loadingType: 'card',
-                breadcrumbs: [{ label: "blogs_list", to: { name: 'blogs_list' } }],
+                breadcrumbs: [{ label: "categories_blog", to: { name: 'categories_blog' } }],
               },
               component: () => import('./blogs/BlogsList.vue')
           },

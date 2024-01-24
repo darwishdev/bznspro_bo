@@ -14,11 +14,7 @@ const roleOptions = async() => {
     roles = options   
     return options
 }
-// const roleOptions = async() => {
-//     return new Promise<any[]>((resolve) => {
-//         await apiClient.rolesInputList({}).then(res => resolve(res.options))  
-//     })
-// }
+
 const getCreateSections = (t: Function , roles : any): Record<string, AppFormSection | FormKitSchemaNode[]> => {
 
     return {
@@ -257,27 +253,31 @@ export const getUserFormProps = async <T extends 'create' | 'update'>(
     console.log(RolesOptions);
     if (formType == 'create') {
       const formProps = {
-        title: 'user_create',
-        submitHandler: {
-          endpoint: userCreate,
-          redirectRoute,
-        },
-        sections: getCreateSections(t , roles), // Await the getCreateSections function
+        context : {
+            title: 'user_create',
+            submitHandler: {
+              endpoint: userCreate,
+              redirectRoute,
+            },
+            sections: getCreateSections(t , roles), // Await the getCreateSections function
+        }
       };
       return formProps;
     }
   
     const formProps = {
-      title: 'user_update',
-      submitHandler: {
-        endpoint: apiClient.userUpdate,
-        redirectRoute,
-      },
-      sections: getUpdateSections(t),
-      findHandler: {
-        endpoint: apiClient.userFindForUpdate,
-        requestPropertyName: 'userId',
-      },
+        context : {
+            title: 'user_update',
+            submitHandler: {
+                endpoint: apiClient.userUpdate,
+                redirectRoute,
+            },
+            sections: getUpdateSections(t),
+            findHandler: {
+                endpoint: apiClient.userFindForUpdate,
+                requestPropertyName: 'userId',
+            },
+      }
     };
   
     return formProps;
