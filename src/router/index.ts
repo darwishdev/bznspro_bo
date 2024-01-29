@@ -58,6 +58,7 @@ const router = createRouter({
     {
       path: '/',
       component: AppLayout,
+      redirect: '/dashboard',
       beforeEnter: authMiddleWare,
       children: appRoutes
     },

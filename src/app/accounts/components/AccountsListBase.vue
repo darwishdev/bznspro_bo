@@ -8,7 +8,7 @@ import { getLookUpOptionsByType, getValueOfLookupTpeByLabel } from '@/components
 import { FilterMatchMode } from 'primevue/api';
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { AccountsListRequest } from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/accounts_account_definitions_pb';
+import type { AccountsListRequest } from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/accounts_account_definitions_pb';
 import type { DataListProps, TableRouter, ITableHeader, AppFormSection } from 'v-dashkit/types';
 import { useTableStore } from 'v-dashkit/stores';
 import type { ListViewWithTypesProps } from '@/types/types';

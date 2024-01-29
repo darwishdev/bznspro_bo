@@ -39,7 +39,7 @@ onMounted(() => {
         <div class="surface-card shadow-2 p-3 border-round">
           <div class="flex justify-content-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">Orders</span>
+              <span class="block text-500 font-medium mb-3">الزوار</span>
               <div class="text-900 font-medium text-xl">152</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -55,8 +55,8 @@ onMounted(() => {
         <div class="surface-card shadow-2 p-3 border-round">
           <div class="flex justify-content-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">Revenue</span>
-              <div class="text-900 font-medium text-xl">$2.100</div>
+              <span class="block text-500 font-medium mb-3">الايرادات</span>
+              <div class="text-900 font-medium text-xl">R.S 2.100</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -64,14 +64,14 @@ onMounted(() => {
             </div>
           </div>
           <span class="text-green-500 font-medium">%52+ </span>
-          <span class="text-500">since last week</span>
+          <span class="text-500">منذ اخر اسبوع</span>
         </div>
       </div>
       <div class="col-12 md:col-6 lg:col-3">
         <div class="surface-card shadow-2 p-3 border-round">
           <div class="flex justify-content-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">Customers</span>
+              <span class="block text-500 font-medium mb-3">المستخدمين</span>
               <div class="text-900 font-medium text-xl">28441</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
@@ -80,15 +80,15 @@ onMounted(() => {
             </div>
           </div>
           <span class="text-green-500 font-medium">520 </span>
-          <span class="text-500">newly registered</span>
+          <span class="text-500">عملاء جدد</span>
         </div>
       </div>
       <div class="col-12 md:col-6 lg:col-3">
         <div class="surface-card shadow-2 p-3 border-round">
           <div class="flex justify-content-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">Comments</span>
-              <div class="text-900 font-medium text-xl">152 Unread</div>
+              <span class="block text-500 font-medium mb-3">المقالات</span>
+              <div class="text-900 font-medium text-xl">152 معلق</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -96,12 +96,12 @@ onMounted(() => {
             </div>
           </div>
           <span class="text-green-500 font-medium">85 </span>
-          <span class="text-500">responded</span>
+          <span class="text-500">منشور</span>
         </div>
       </div>
     </div>
     <div v-if="loading">
-      loadig
+      تحميل
     </div>
     <div class="grid" v-else>
 
