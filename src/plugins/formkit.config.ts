@@ -18,7 +18,7 @@ const pro = createProPlugin(import.meta.env.VITE_FORMKIT_TOKEN, inputs)
 const dropdownCustomInput = createInput(InputDropDownCustom, {
     props: ['dropdownProps', 'options', 'placeholder', 'convertToFlat', 'requestValue', 'translateLabel', 'cacheName', 'cachePeriod'],
 })
-const editorCustomInput = createInput(EditorInput, {
+const richtextInput = createInput(EditorInput, {
     props: ['name', 'label'],
 })
 const unitQtyInput = createInput(InputUnitQty, {
@@ -37,7 +37,7 @@ const config: DefaultConfigOptions = {
         'dropdownCustom': dropdownCustomInput,
         'unitPrice': unitPriceInput,
         'unitQty2': unitQtyInput,
-        'editorCustom' : editorCustomInput
+        'richtext': richtextInput
     },
     locale: 'en',
     theme: 'genesis'

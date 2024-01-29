@@ -1,6 +1,6 @@
 import type {
     RoleCreateRequest, RoleCreateResponse, RoleUpdateRequest, RoleUpdateResponse
-} from '@buf/ahmeddarwish_mln-rms-core.bufbuild_es/rms/v1/users_role_definitions_pb'
+} from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/accounts_role_definitions_pb'
 import type { AppFormProps, AppFormSection } from 'v-dashkit/types';
 import type { FormKitSchemaNode } from '@formkit/core';
 import apiClient from '@/api/ApiClient';

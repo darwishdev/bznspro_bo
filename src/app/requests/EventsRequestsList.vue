@@ -3,18 +3,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import DataList from 'v-dashkit/data/DataList';
-import { useNotificationStore } from 'v-dashkit/stores'
 import type { EventRequestsListResponse, EventRequestsListRow } from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/events_request_definitions_pb'
 import apiClient from '@/api/ApiClient';
-import { TableHeaderText, TableHeaderImage, TableHeaderCount, TableHeaderLink, TableHeaderDate } from 'v-dashkit/utils/table'
+import { TableHeaderText, TableHeaderDate, TableHeaderTag } from 'v-dashkit/utils/table'
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n'
-import type { DataListProps, TableRouter, AppFormSection, ITableHeader } from 'v-dashkit/types';
+import { TableHeaderPrice } from '@/common/utils/TableHeaders'
+import type { DataListProps, TableRouter, ITableHeader } from 'v-dashkit/types';
 import Menu from 'primevue/menu';
-import { request_statuses } from '../../common/utils/Lookups';
 const { t } = useI18n()
 
-const { records, deletedRecords, options } = await apiClient.eventRequestsList({})
+const { records, deletedRecords } = await apiClient.eventRequestsList({})
 const dataKey = "eventId"
 const viewRouter: TableRouter = {
     name: "requests_find",
@@ -27,7 +26,7 @@ const headers: Record<string, ITableHeader> = {
         isGlobalFilter: true,
         // router: viewRouter
     }),
-    'userName': new TableHeaderText('userName', {
+    'userEmail': new TableHeaderText('userEmail', {
         sortable: true,
         isGlobalFilter: true,
         filter: {
@@ -36,8 +35,8 @@ const headers: Record<string, ITableHeader> = {
                 $formkit: 'text',
                 prefixIcon: "tools",
                 outerClass: "col-12 sm:col-6 md:col-3",
-                name: "userName",
-                placeholder: t("userName")
+                name: "userEmail",
+                placeholder: t("userEmail")
             }
         }
     }),
@@ -86,13 +85,29 @@ const headers: Record<string, ITableHeader> = {
     'categoryName': new TableHeaderText('categoryName', {
         sortable: true,
     }),
-    'requestStatus': new TableHeaderText('requestStatus', {
+    'requestStatus': new TableHeaderTag('requestStatus', {
         sortable: true,
+        filter: {
+            matchMode: FilterMatchMode.CONTAINS,
+            input: {
+                $formkit: 'text',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-3",
+                name: "requestStatus",
+                placeholder: t("requestStatus")
+            }
+        }
     }),
-    'price': new TableHeaderText('price', {
+    'price': new TableHeaderPrice('price', {
         sortable: true,
     }),
     'discount': new TableHeaderText('discount', {
+        sortable: true,
+    }),
+    'discountAmount': new TableHeaderPrice('discountAmount', {
+        sortable: true,
+    }),
+    'finalPrice': new TableHeaderPrice('finalPrice', {
         sortable: true,
     }),
     'createdAt': new TableHeaderDate('createdAt', {
@@ -120,12 +135,12 @@ const tableProps: DataListProps<EventRequestsListResponse, EventRequestsListRow>
         displayType: "table",
         fetchFn: apiClient.eventRequestsList as any,
         options: {
-        "title": "event_requests_list",
-        "description": "event_requests_description",
-        "deleteRestoreHandler": {
-            "endpoint": "eventRequestDeleteRestore",
-            "requestProperty": "event_requestIds"
-        }
+            "title": "event_requests_list",
+            "description": "event_requests_description",
+            "deleteRestoreHandler": {
+                "endpoint": "eventRequestDeleteRestore",
+                "requestProperty": "event_requestIds"
+            }
         } as any,
         headers
     }
@@ -137,9 +152,9 @@ const toggle = (index: number, e: Event) => {
     menuRefs.value[index].toggle(e);
 };
 
-const updateRequestStatus = (eventRequestId : number , newRequestStatus : number) => {
+const updateRequestStatus = (eventRequestId: number, newRequestStatus: number) => {
     console.log(eventRequestId);
-    apiClient.eventRequestUpdate({eventRequestId : eventRequestId , requestStatusId : newRequestStatus}).then((result) => {
+    apiClient.eventRequestUpdate({ eventRequestId: eventRequestId, requestStatusId: newRequestStatus }).then((result) => {
         location.reload()
     }).catch((err) => {
         console.log(err);
@@ -159,10 +174,15 @@ const updateRequestStatus = (eventRequestId : number , newRequestStatus : number
                                 :label="$t('actions')" />
                             <Menu :ref="(el: any) => menuRefs[data[dataKey]] = el" id="overlay_menu" :popup="true">
                                 <template #start>
-                                    <app-btn class="w-full" icon="check" @click="updateRequestStatus(data.eventRequestId , 2)" v-if="data.requestStatus !== 'confirmed'" :label="$t('confirm_request')" />
-                                    <app-btn class="w-full" @click="updateRequestStatus(data.eventRequestId , 4)" icon="trash" v-if="data.requestStatus !== 'canceled'"
-                                    :label="$t('cancel')" />
-                                    <app-btn class="w-full" @click="updateRequestStatus(data.eventRequestId , 3)" icon="dollar" v-if="data.requestStatus !== 'refunded'" :label="$t('refund')" />
+                                    <app-btn class="w-full" icon="check"
+                                        @click="updateRequestStatus(data.eventRequestId, 2)"
+                                        v-if="data.requestStatusId == 1" :label="$t('confirm_request')" />
+                                    <app-btn class="w-full" icon="close"
+                                        @click="updateRequestStatus(data.eventRequestId, 1)"
+                                        v-if="data.requestStatusId != 1" :label="$t('pend_request')" />
+                                    <app-btn class="w-full" @click="updateRequestStatus(data.eventRequestId, 3)"
+                                        icon="trash" v-if="data.requestStatusId != 2 || data.requestStatus !== 'confirmed'"
+                                        :label="$t('cancel')" />
                                 </template>
                             </Menu>
                         </div>
