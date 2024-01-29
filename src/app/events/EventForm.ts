@@ -47,22 +47,8 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                 $formkit: 'editorCustom',
                 prefixIcon: "tools",
                 outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventPlan",
-                label: t("eventPlan")
-            },
-            {
-                $formkit: 'editorCustom',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventGoals",
-                label: t("eventGoals")
-            },
-            {
-                $formkit: 'editorCustom',
-                prefixIcon: "tools",
-                outerClass: "col-12 sm:col-6 md:col-6",
-                name: "eventBrief",
-                label: t("eventBrief")
+                name: "eventBreif",
+                label: t("eventBreif")
             },
             {
                 $formkit: 'editorCustom',
@@ -106,8 +92,38 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                 placeholder: t("eventHours")
             },
             {
+                $formkit: 'number',
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "price",
+                number : 'float',
+                prefixIcon: "dollar",
+                validation: "required|min:1",
+                label: t("price"),
+                placeholder: t("price")
+            },
+            {
+                $formkit: 'number',
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "discount",
+                number : 'float',
+                prefixIcon: "dollar",
+                validation: "required|min:1",
+                label: t("discount"),
+                placeholder: t("discount")
+            },
+            {
+                $formkit: 'number',
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "shabDiscount",
+                number : 'float',
+                prefixIcon: "dollar",
+                validation: "required|min:1",
+                label: t("shabDiscount"),
+                placeholder: t("shabDiscount")
+            },
+            {
                 $formkit: 'dropdownCustom',
-                outerClass: "col-10",
+                outerClass: "col-5",
                 name: "categoryId",
                 validation: "required",
                 options: 'categoriesInputList',
@@ -115,6 +131,13 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                 cacheName: 'categories',
                 placeholder: t("categories"),
                 label: t("categories")
+            },
+            {
+                $formkit: 'chips',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-12",
+                name: "tags",
+                label: t("tags")
             },
             {
                 $cmp: 'FormKit',
@@ -126,6 +149,7 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                     // size: 500
                 }
             },
+            
         ],
         'constructor_info' : [
             {
@@ -153,16 +177,62 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                     value: "0.701566374267176.png",
                 }
             },
+        ],
+        'eventGoals' : [
+            {
+                $formkit: 'chips',
+                prefixIcon: "tools",
+                outerClass: "col-12 sm:col-6 md:col-12",
+                name: "eventGoals",
+                label: t("eventGoals")
+            },
+        ],
+        'eventPlan' : [
+            {
+                $formkit: 'repeater',
+                name: 'eventPlan',
+                outerClass: "w-full col-12 align-items-center",
+                children: [
+                    {
+                        $el: 'div',
+                        attrs: {
+                            class: 'p-3 w-full flex grid'
+                        },
+                        children: [
+                            {
+                                $formkit: 'text',
+                                prefixIcon: "tools",
+                                outerClass: "col-12 sm:col-6 md:col-5",
+                                name: "title",
+                                placeholder: t("title"),
+                                validation : "",
+                                label: t("title")
+                            },
+                            {
+                                $formkit: 'text',
+                                prefixIcon: "tools",
+                                outerClass: "col-12 sm:col-6 md:col-5",
+                                name: "breif",
+                                placeholder: t("breif"),
+                                validation : "",
+                                label: t("breif")
+                            },
+                        ]
+                    }
+                ],
+              }
         ]
     };
 };
 
 const redirectRoute = 'events_list';
 
-const map = (req : any) => {
-    req.eventDate = new Date(req.eventDate).toLocaleDateString()
+const mapFn = (req : EventCreateRequest) => {
+    if(req.eventDate){
+        req.eventDate = new Date(req.eventDate).toLocaleString()
+    }
     console.log(req);
-    return req
+    return req as EventCreateRequest
 }
 
 export const getEventFormProps =
@@ -179,7 +249,7 @@ export const getEventFormProps =
                         submitHandler: {
                             endpoint: apiClient.eventCreate,
                             redirectRoute,
-                            mapFunction : map
+                            mapFunction : mapFn
                         },
                         sections: getSections(t)
                     }
@@ -195,6 +265,7 @@ export const getEventFormProps =
                     submitHandler: {
                         endpoint: apiClient.eventUpdate,
                         redirectRoute,
+                        mapFunction : mapFn
                     },
                     sections: getSections(t),
                     findHandler: {

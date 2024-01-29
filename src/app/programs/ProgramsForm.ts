@@ -1,6 +1,6 @@
 import type {
-    ServiceCreateRequest , ServiceCreateResponse , ServiceUpdateRequest , ServiceUpdateResponse
-} from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/public_services_definitions_pb'
+    ProgramCreateRequest , ProgramCreateResponse , ProgramUpdateRequest , ProgramUpdateResponse
+} from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/public_programs_definitions_pb'
 import type { AppFormProps, AppFormSection } from 'v-dashkit/types';
 import type { FormKitSchemaNode } from '@formkit/core';
 import apiClient from '@/api/ApiClient';
@@ -13,17 +13,17 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
                 $formkit: 'text',
                 prefixIcon: "tools",
                 outerClass: "col-12 sm:col-6 md:col-7",
-                name: "serviceName",
+                name: "programName",
                 validation: "required",
-                placeholder: t("serviceName"),
-                label: t("serviceName")
+                placeholder: t("programName"),
+                label: t("programName")
             },
             {
                 $cmp: 'FormKit',
                 props: {
                     outerClass: "col-12 sm:col-6 md:col-2",
                     type: 'image',
-                    name: 'serviceImage',
+                    name: 'programImage',
                     value: "0.701566374267176.png",
                     // size: 500
                 }
@@ -41,21 +41,21 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
     };
 };
 
-const redirectRoute = 'services_list';
+const redirectRoute = 'programs_list';
 
-export const getServicesFormProps =
+export const getProgramsFormProps =
     async <T extends 'create' | 'update'>(
         t: Function,
         formType: T
-    ): Promise<AppFormProps<T extends 'create' ? ServiceCreateRequest : ServiceUpdateRequest, T extends 'create' ? ServiceCreateResponse : ServiceUpdateResponse>> => {
+    ): Promise<AppFormProps<T extends 'create' ? ProgramCreateRequest : ProgramUpdateRequest, T extends 'create' ? ProgramCreateResponse : ProgramUpdateResponse>> => {
 
         return new Promise(r => {
             if (formType == 'create') {
                 const formProps = {
                     context: {
-                        title: "service_create",
+                        title: "program_create",
                         submitHandler: {
-                            endpoint: apiClient.serviceCreate,
+                            endpoint: apiClient.programCreate,
                             redirectRoute
                         },
                         sections: getSections(t)
@@ -68,15 +68,15 @@ export const getServicesFormProps =
 
             const formProps = {
                 context: {
-                    title: "service_update",
+                    title: "program_update",
                     submitHandler: {
-                        endpoint: apiClient.serviceUpdate,
+                        endpoint: apiClient.programUpdate,
                         redirectRoute
                     },
                     sections: getSections(t),
                     findHandler: {
-                        endpoint: apiClient.serviceFindForUpdate,
-                        requestPropertyName: 'serviceId'
+                        endpoint: apiClient.programFindForUpdate,
+                        requestPropertyName: 'programId'
                     }
                 }
             };

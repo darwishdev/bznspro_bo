@@ -13,10 +13,14 @@ import projectsRoutes from '@/app/projects/routes';
 import testemonialsRoutes from '@/app/testemonials/routes';
 import eventRequestsRoutes from '@/app/requests/routes';
 import categoriesRoutes from '@/app/categories/routes';
+import programsRoutes from '@/app/programs/routes';
 import teamRoutes from '@/app/team/routes';
+import blogRoutes from '@/app/blogs/routes';
 
 const appRoutes = [
   ...dashboardRoutes,
+  ...blogRoutes,
+  ...programsRoutes,
   ...teamRoutes,
   ...categoriesRoutes,
   ...servicesRoutes,

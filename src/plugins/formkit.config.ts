@@ -3,6 +3,7 @@ import { genesisIcons } from "@formkit/icons"
 import InputDropDownCustom from "@/components/form/InputDropDownCustom.vue"
 import EditorInput from "@/components/form/EditorInput.vue"
 import InputUnitQty from "@/components/form/InputUnitQty.vue"
+import ChipsInput from "@/components/form/ChipsInput.vue"
 import InputUnitPrice from "@/components/form/InputUnitPrice.vue"
 
 import { createInput } from '@formkit/vue'
@@ -21,6 +22,9 @@ const dropdownCustomInput = createInput(InputDropDownCustom, {
 const editorCustomInput = createInput(EditorInput, {
     props: ['name', 'label'],
 })
+const ChipsCustomeInput = createInput(ChipsInput, {
+    props: ['name', 'label'],
+})
 const unitQtyInput = createInput(InputUnitQty, {
     props: ['unitBuy', 'unitSell', 'unitRatio'],
 })
@@ -37,6 +41,7 @@ const config: DefaultConfigOptions = {
         'dropdownCustom': dropdownCustomInput,
         'unitPrice': unitPriceInput,
         'unitQty2': unitQtyInput,
+        'chips': ChipsCustomeInput,
         'editorCustom' : editorCustomInput
     },
     locale: 'en',
