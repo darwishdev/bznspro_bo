@@ -1,5 +1,5 @@
 import type {
-    BlogCreateRequest , BlogCreateResponse , BlogUpdateRequest , BlogUpdateResponse
+    BlogCreateRequest , BlogCreateResponse , BlogUpdateRequest , BlogUpdateResponse , BlogFindForUpdateRequest
 } from '@buf/ahmeddarwish_bzns-pro-api.bufbuild_es/bznspro/v1/blog_blog_definitions_pb'
 import type { AppFormProps, AppFormSection } from 'v-dashkit/types';
 import type { FormKitSchemaNode } from '@formkit/core';
@@ -81,45 +81,74 @@ const getSections = (t: Function): Record<string, AppFormSection | FormKitSchema
         ],
         'blog_links' : [
             {
-                $formkit: 'repeater',
-                name: 'links',
-                outerClass: "w-full col-12 align-items-center",
-                children: [
-                    {
-                        $el: 'div',
-                        attrs: {
-                            class: 'p-3 w-full flex grid'
-                        },
-                        children: [
-                            {
-                                $formkit: 'text',
-                                prefixIcon: "tools",
-                                outerClass: "col-12 sm:col-6 md:col-5",
-                                name: "name",
-                                placeholder: t("name"),
-                                validation : "required",
-                                label: t("name")
-                            },
-                            {
-                                $formkit: 'url',
-                                prefixIcon: "tools",
-                                outerClass: "col-12 sm:col-6 md:col-5",
-                                name: "url",
-                                placeholder : "https://www.example.com...",
-                                validation : "url",
-                                label: t("url")
-                            },
-                        ]
-                    }
-                ],
-              }
+                $formkit: 'text',
+                prefixIcon: "facebook",
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "fbLink",
+                placeholder: t("fbLink"),
+                label: t("fbLink")
+            },
+            {
+                $formkit: 'text',
+                prefixIcon: "twitter",
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "twitterLink",
+                placeholder: t("twitterLink"),
+                label: t("twitterLink")
+            },
+            {
+                $formkit: 'text',
+                prefixIcon: "instagram",
+                outerClass: "col-12 sm:col-6 md:col-5",
+                name: "igLink",
+                placeholder: t("igLink"),
+                label: t("igLink")
+            },
         ]
     };
 };
 
 const redirectRoute = 'blogs_list';
 
-const map = (req : BlogCreateRequest) => {
+const blogFind = (req : BlogFindForUpdateRequest): Promise<BlogUpdateRequest> => {
+    return new Promise((resolve, reject) => {
+            apiClient.blogFindForUpdate(req)
+            .then((resp : any) => {
+                let fbLink = resp.links.filter((link : any)=> link.name == 'Facebook')
+                if(fbLink.length > 0){
+                    resp.fbLink = fbLink[0].url
+                }
+                let igLink = resp.links.filter((link : any)=> link.name == 'Instagram')
+                if(igLink.length > 0){
+                    resp.igLink = igLink[0].url
+                }
+                let twitterLink = resp.links.filter((link : any)=> link.name == 'Twitter')
+                if(twitterLink.length > 0){
+                    resp.twitterLink = twitterLink[0].url
+                }
+                console.log(resp);
+                resolve(resp)
+            }).catch((apiClientError) => {
+                reject(apiClientError)
+            });
+    })
+        
+}
+const map = (req : any) => {
+    req.links = [
+        {
+            name : 'Facebook',
+            url : req.fbLink
+        },
+        {
+            name: 'Twitter',
+            url : req.twitterLink
+        },
+        {
+            name : 'Instagram',
+            url : req.igLink
+        }
+    ]
     req.dateTime = new Date(req.dateTime).toLocaleString()
     console.log(req);
     return req
@@ -129,7 +158,7 @@ export const getBlogFormProps =
     async <T extends 'create' | 'update'>(
         t: Function,
         formType: T
-    ): Promise<AppFormProps<T extends 'create' ? BlogCreateRequest : BlogUpdateRequest, T extends 'create' ? BlogCreateResponse : BlogCreateResponse>> => {
+    ): Promise<AppFormProps<T extends 'create' ? BlogCreateRequest : BlogUpdateRequest, T extends 'create' ? BlogCreateResponse : BlogUpdateResponse>> => {
 
         return new Promise(r => {
             if (formType == 'create') {
@@ -159,7 +188,7 @@ export const getBlogFormProps =
                     },
                     sections: getSections(t),
                     findHandler: {
-                        endpoint: apiClient.blogFindForUpdate,
+                        endpoint: blogFind,
                         requestPropertyName: 'blogId'
                     }
                 }
