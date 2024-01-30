@@ -114,15 +114,15 @@ const blogFind = (req : BlogFindForUpdateRequest): Promise<BlogUpdateRequest> =>
     return new Promise((resolve, reject) => {
             apiClient.blogFindForUpdate(req)
             .then((resp : any) => {
-                let fbLink = resp.links.filter((link : any)=> link.name == 'Facebook')
+                let fbLink = resp.links.filter((link : any)=> link.name == 'facebook')
                 if(fbLink.length > 0){
                     resp.fbLink = fbLink[0].url
                 }
-                let igLink = resp.links.filter((link : any)=> link.name == 'Instagram')
+                let igLink = resp.links.filter((link : any)=> link.name ==  'ion-logo-instagram')
                 if(igLink.length > 0){
                     resp.igLink = igLink[0].url
                 }
-                let twitterLink = resp.links.filter((link : any)=> link.name == 'Twitter')
+                let twitterLink = resp.links.filter((link : any)=> link.name == 'ion-logo-twitter')
                 if(twitterLink.length > 0){
                     resp.twitterLink = twitterLink[0].url
                 }
@@ -137,15 +137,15 @@ const blogFind = (req : BlogFindForUpdateRequest): Promise<BlogUpdateRequest> =>
 const map = (req : any) => {
     req.links = [
         {
-            name : 'Facebook',
+            name : 'facebook',
             url : req.fbLink
         },
         {
-            name: 'Twitter',
+            name: 'ion-logo-twitter',
             url : req.twitterLink
         },
         {
-            name : 'Instagram',
+            name : 'ion-logo-instagram',
             url : req.igLink
         }
     ]
